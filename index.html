@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="./styles/sidebar.css">
+    <style>
+      #container{
+        border:1px solid black;
+        display: flex;
+      }
+      
+      #box{
+        display: flex;
+      }
+      #box>div{
+        flex:1
+      }
+      #image{
+       height: 200px;
+       width: 300px;
+      }
+      #content_div,#description_div{
+        width: 30%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="sidebar">
+
+        <!--DO NOT CHANGE THIS ID's-->
+
+
+      </div>
+
+      <div id="main">
+        
+
+      </div>
+    </div>
+  </body>
+  <script type="module">
+    import sidebar from "./components/sidebar.js"
+
+    document.getElementById('sidebar').innerHTML=sidebar();
+
+  </script>
+  <script>
+    let data;
+//  https://gnews.io/api/v4/search?q=example&token=d31fc2a12d867f8d7c9e2d4055d31c09
+// https://gnews.io/api/v4/top-headlines?token=d31fc2a12d867f8d7c9e2d4055d31c09 
+  async function news(){
+    let api = `https://gnews.io/api/v4/top-headlines?token=1b229a2564b76af6f2ff7e957c135cf6 `;
+    let response = await fetch(api);
+    data = await response.json();
+    console.log(data.articles)
+    append(data.articles)
+  
+  }
+  news()
+   function append(data){
+    data.forEach(function(elem){
+      let box = document.createElement('div');
+      box.setAttribute('id','box')
+      let content=elem.title;
+      let description = elem.description;
+      let image = elem.image;
+      let contentdiv=document.createElement('div');
+      contentdiv.setAttribute('id','contentdiv');
+      contentdiv.innerText=content;
+      let description_div=document.createElement('div');
+      description_div.setAttribute('id','description_div')
+      description_div.innerText= description;
+      let img_div = document.createElement('div');
+      let img=document.createElement('img');
+      img.src= image;
+      img.setAttribute('id','image')
+      img_div.append(img);
+      box.append(contentdiv,description_div,img_div)
+      document.getElementById('main').append(box)
+      
+      box.addEventListener('click',function(){
+        let getnews= localStorage.setItem('getnews',JSON.stringify(elem))
+        console.log(elem)
+           change(elem);
+      })
+
+
+
+    })
+   }
+
+ function change(e){
+   window.location.href='news.html';
+ }
+
+   document.getElementById('searchbutton').addEventListener('click',display);
+  
+
+  //  function debounce(){
+
+  //  }
+
+  
+ function display(){
+   window.location.href="search.html"
+  //   if(key=='enter'){
+  //   let name = document.getElementById('search').value;
+  // let url =`https://gnews.io/api/v4/search?q=${name}&token=b730e574b4300232870274e60d2deaea`;
+  // let response = await fetch(url);
+  // let data = await  response.json();
+  // console.log(data)
+    }
+
+
+// function display(){
+//   console.log(key)
+// }
+
+   
+  </script>
+
+</html>

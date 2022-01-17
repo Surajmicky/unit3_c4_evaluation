@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <link rel="stylesheet" href="./styles/sidebar.css">
+  <style>
+    #container{
+      display: flex;
+    }
+    img{
+      height: 200px;
+      width: 200px;
+    }
+  </style>
+  <body>
+    <!--DO NOT CHANGE THIS ID's-->
+
+    <div id="container">
+      <div id="sidebar">
+        <!--add your sidebar component here-->
+      </div>
+
+      <div id="main">
+        <div id="headline">
+          <!--add headline here-->
+        </div>
+        <img id="img" src="" alt="" />
+        <!--show news image here-->
+
+
+        <div id="content">
+          <!--add news content here-->
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+   let data = JSON.parse( localStorage.getItem('getnews'));
+  let news_box=document.createElement('div');
+  let title_div=document.createElement('div');
+  let description_div=document.createElement('div');
+  let image_div=document.createElement('div');
+  let content_div=document.createElement('div');
+    title_div.innerText =  data.title;
+   description_div.innerText= data.description;
+   img.src=data.image;
+   content_div.innerText= data.content;
+   image_div.append(img)
+  news_box.append(image_div,title_div,description_div,content_div)
+document.getElementById('main').append(news_box)
+
+  
+   
+  </script>
+
+</html>
+<script type="module">
+  import sidebar from "./components/sidebar.js"
+
+  document.getElementById('sidebar').innerHTML=sidebar();
+
+</script>

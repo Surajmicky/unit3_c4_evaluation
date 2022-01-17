@@ -1,0 +1,10 @@
+div{
+    border: 1px solid black;
+}
+#sidebar{
+    width: 200px;
+    height: 100vh;
+}
+#sidebar>div{
+    margin-top:10px
+}
